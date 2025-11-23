@@ -32,5 +32,10 @@ namespace VSDB2025
             logwin = new login();
             logwin.ShowDialog();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            updateTable();
+        }
     }
 }

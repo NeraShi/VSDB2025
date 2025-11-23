@@ -1,4 +1,7 @@
-﻿namespace VSDB2025
+﻿using System.Data;
+using System.Data.SqlClient;
+
+namespace VSDB2025
 {
     partial class Form1
     {
@@ -31,7 +34,10 @@
             menuStrip1 = new MenuStrip();
             менюToolStripMenuItem = new ToolStripMenuItem();
             соединитьсяСБДToolStripMenuItem = new ToolStripMenuItem();
+            dataGridView1 = new DataGridView();
+            button1 = new Button();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -40,7 +46,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { менюToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(973, 28);
+            menuStrip1.Size = new Size(873, 28);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -54,15 +60,37 @@
             // соединитьсяСБДToolStripMenuItem
             // 
             соединитьсяСБДToolStripMenuItem.Name = "соединитьсяСБДToolStripMenuItem";
-            соединитьсяСБДToolStripMenuItem.Size = new Size(224, 26);
+            соединитьсяСБДToolStripMenuItem.Size = new Size(216, 26);
             соединитьсяСБДToolStripMenuItem.Text = "Соединиться с БД";
             соединитьсяСБДToolStripMenuItem.Click += соединитьсяСБДToolStripMenuItem_Click;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(12, 31);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(577, 235);
+            dataGridView1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            button1.Location = new Point(12, 272);
+            button1.Name = "button1";
+            button1.Size = new Size(577, 42);
+            button1.TabIndex = 2;
+            button1.Text = "Вывести данные";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(973, 513);
+            ClientSize = new Size(873, 497);
+            Controls.Add(button1);
+            Controls.Add(dataGridView1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Form1";
@@ -70,6 +98,7 @@
             Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -77,8 +106,29 @@
         #endregion
         private login logwin;
 
+        public void updateTable()
+        {
+            // объект с данными, прикрепляемый к DataGridView
+            using (DataTable dt = new DataTable())
+            {
+                // объект подключения к базе данных
+                using (SqlConnection conn = new SqlConnection(Data.value))
+                {
+                    // объект с результатом выполнения процедуры после данного подключения
+                    using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM dbo.clients ORDER BY id ASC", conn))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+
+                dataGridView1.DataSource = dt;
+            }
+        }
+
         private MenuStrip menuStrip1;
         private ToolStripMenuItem менюToolStripMenuItem;
         private ToolStripMenuItem соединитьсяСБДToolStripMenuItem;
+        private DataGridView dataGridView1;
+        private Button button1;
     }
 }
