@@ -14,4 +14,9 @@ namespace VSDB2025
             Application.Run(new Form1());
         }
     }
+
+    static class Data
+    {
+        public static string value { get; set; }
+    }
 }
