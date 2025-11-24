@@ -36,6 +36,7 @@ namespace VSDB2025
             соединитьсяСБДToolStripMenuItem = new ToolStripMenuItem();
             dataGridView1 = new DataGridView();
             button1 = new Button();
+            button2 = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -46,7 +47,7 @@ namespace VSDB2025
             menuStrip1.Items.AddRange(new ToolStripItem[] { менюToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(873, 28);
+            menuStrip1.Size = new Size(841, 28);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -84,11 +85,22 @@ namespace VSDB2025
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // button2
+            // 
+            button2.Location = new Point(595, 31);
+            button2.Name = "button2";
+            button2.Size = new Size(236, 29);
+            button2.TabIndex = 3;
+            button2.Text = "Добавить данные";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(873, 497);
+            ClientSize = new Size(841, 327);
+            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(dataGridView1);
             Controls.Add(menuStrip1);
@@ -105,6 +117,7 @@ namespace VSDB2025
 
         #endregion
         private login logwin;
+        private addrecord addrec;
 
         public void updateTable()
         {
@@ -115,9 +128,17 @@ namespace VSDB2025
                 using (SqlConnection conn = new SqlConnection(Data.value))
                 {
                     // объект с результатом выполнения процедуры после данного подключения
-                    using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM dbo.clients ORDER BY id ASC", conn))
+                    using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM dbo.salaries ORDER BY id ASC", conn))
                     {
-                        da.Fill(dt);
+                        try
+                        {
+                            da.Fill(dt);
+                        }
+                        catch (Exception helpExec)
+                        {
+                            MessageBox.Show("Требуется подключение к базе данных!");
+                        }
+                        
                     }
                 }
 
@@ -130,5 +151,6 @@ namespace VSDB2025
         private ToolStripMenuItem соединитьсяСБДToolStripMenuItem;
         private DataGridView dataGridView1;
         private Button button1;
+        private Button button2;
     }
 }

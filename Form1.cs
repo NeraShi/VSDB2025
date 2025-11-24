@@ -33,9 +33,16 @@ namespace VSDB2025
             logwin.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             updateTable();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            addrec = new addrecord();
+            addrec.Owner = this;
+            addrec.ShowDialog();
         }
     }
 }
