@@ -1,3 +1,4 @@
+using Microsoft.Office.Interop.Word;
 using System.Data.SqlClient;
 
 namespace VSDB2025
@@ -77,7 +78,7 @@ namespace VSDB2025
 
                     try
                     {
-                        if (MessageBox.Show("Вы действительно хотите удалить запись?", "Предупреждение", 
+                        if (MessageBox.Show("Вы действительно хотите удалить запись?", "Предупреждение",
                             MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                         {
                             cmd.ExecuteNonQuery();
@@ -90,6 +91,57 @@ namespace VSDB2025
                     {
                         MessageBox.Show(help.Message);
                     }
+                }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
+            Document doc = app.Documents.Add(Visible: true);
+            Microsoft.Office.Interop.Word.Range r = doc.Range();
+
+            Table t = doc.Tables.Add(r, 1, 3);
+            t.Borders.Enable = 1;
+
+            using (SqlConnection conn = new SqlConnection(Data.value))
+            {
+                try
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.salaries", conn))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            int j = 1;
+
+                            while (reader.Read())
+                            {
+                                t.Rows.Add();
+                                for (int i = 1; i <= reader.FieldCount; i++)
+                                {
+                                    t.Cell(j, i).Range.Text = reader.GetValue(i - 1).ToString();
+                                }
+                                j++;
+                            }
+                        }
+                    }
+
+                    t.Rows.Last.Delete();
+                    doc.Save();
+                    try
+                    {
+                        doc.Close();
+                        app.Quit();
+                    }
+                    catch (Exception help)
+                    {
+                        MessageBox.Show(help.Message);
+                    }
+                }
+                catch (Exception help)
+                {
+                    MessageBox.Show(help.Message);
                 }
             }
         }

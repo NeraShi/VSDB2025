@@ -43,6 +43,7 @@ namespace VSDB2025
             label2 = new Label();
             button3 = new Button();
             button4 = new Button();
+            button5 = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -158,11 +159,23 @@ namespace VSDB2025
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
+            // button5
+            // 
+            button5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            button5.Location = new Point(618, 268);
+            button5.Name = "button5";
+            button5.Size = new Size(236, 78);
+            button5.TabIndex = 10;
+            button5.Text = "Создать отчёт";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(866, 367);
+            Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(label2);
@@ -226,5 +239,6 @@ namespace VSDB2025
         private Label label2;
         private Button button3;
         private Button button4;
+        private Button button5;
     }
 }
