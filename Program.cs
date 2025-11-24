@@ -18,5 +18,6 @@ namespace VSDB2025
     static class Data
     {
         public static string value { get; set; }
+        public static int clicked_object_id {  get; set; }
     }
 }
