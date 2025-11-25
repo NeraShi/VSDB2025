@@ -1,6 +1,6 @@
 ﻿namespace VSDB2025
 {
-    partial class addrecord
+    partial class Addrecord
     {
         /// <summary>
         /// Required designer variable.
@@ -26,12 +26,13 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+        [Obsolete]
         private void InitializeComponent()
         {
             label1 = new Label();
-            textBox1 = new TextBox();
+            textBoxName = new TextBox();
             label2 = new Label();
-            textBox2 = new TextBox();
+            textBoxSalary = new TextBox();
             button1 = new Button();
             SuspendLayout();
             // 
@@ -45,15 +46,14 @@
             label1.TabIndex = 0;
             label1.Text = "Имя клиента";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            label1.Click += label1_Click;
             // 
             // textBox1
             // 
-            textBox1.Font = new Font("Segoe UI", 10F);
-            textBox1.Location = new Point(69, 49);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(222, 30);
-            textBox1.TabIndex = 1;
+            textBoxName.Font = new Font("Segoe UI", 10F);
+            textBoxName.Location = new Point(69, 49);
+            textBoxName.Name = "textBox1";
+            textBoxName.Size = new Size(222, 30);
+            textBoxName.TabIndex = 1;
             // 
             // label2
             // 
@@ -68,11 +68,11 @@
             // 
             // textBox2
             // 
-            textBox2.Font = new Font("Segoe UI", 10F);
-            textBox2.Location = new Point(68, 117);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(222, 30);
-            textBox2.TabIndex = 3;
+            textBoxSalary.Font = new Font("Segoe UI", 10F);
+            textBoxSalary.Location = new Point(68, 117);
+            textBoxSalary.Name = "textBox2";
+            textBoxSalary.Size = new Size(222, 30);
+            textBoxSalary.TabIndex = 3;
             // 
             // button1
             // 
@@ -83,7 +83,7 @@
             button1.TabIndex = 4;
             button1.Text = "Добавить";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button1.Click += AddDataRecord;
             // 
             // addrecord
             // 
@@ -91,9 +91,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(359, 226);
             Controls.Add(button1);
-            Controls.Add(textBox2);
+            Controls.Add(textBoxSalary);
             Controls.Add(label2);
-            Controls.Add(textBox1);
+            Controls.Add(textBoxName);
             Controls.Add(label1);
             Name = "addrecord";
             Text = "addrecord";
@@ -104,9 +104,9 @@
         #endregion
 
         private Label label1;
-        private TextBox textBox1;
+        private TextBox textBoxName;
         private Label label2;
-        private TextBox textBox2;
+        private TextBox textBoxSalary;
         private Button button1;
     }
 }

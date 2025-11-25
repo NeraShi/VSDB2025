@@ -6,6 +6,7 @@ namespace VSDB2025
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
+        [Obsolete]
         static void Main()
         {
             // To customize application configuration such as set high DPI settings or default font,
@@ -17,7 +18,7 @@ namespace VSDB2025
 
     static class Data
     {
-        public static string value { get; set; }
-        public static int clicked_object_id {  get; set; }
+        public static string? Value { get; set; }
+        public static int Clicked_object_id { get; set; }
     }
 }

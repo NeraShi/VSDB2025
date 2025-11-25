@@ -1,56 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data.SqlClient;
 
 namespace VSDB2025
 {
-    public partial class addrecord : Form
+    public partial class Addrecord : Form
     {
-        public addrecord()
+        [Obsolete]
+        public Addrecord()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        [Obsolete]
+        private void AddDataRecord(object sender, EventArgs e)
         {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using(SqlConnection conn = new SqlConnection(Data.value))
+            using SqlConnection conn = new(Data.Value);
+            try
             {
+                conn.Open();
+                using SqlCommand cmd = new("INSERT INTO dbo.salaries(name, salary) VALUES('"
+                    + textBoxName.Text + "','" + 
+                    textBoxSalary.Text + "')", conn);
                 try
                 {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand("INSERT INTO dbo.salaries(name, salary) VALUES('" + textBox1.Text + "','" + textBox2.Text + "')", conn))
-                    {
-                        try
-                        {
-                            cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
 
-                            Form1 ff = (Form1)this.Owner;
-                            ff.button1_Click(sender, e);
+                    Form1? ff = Owner as Form1;
+                    ff?.ShowDataTable(sender, e);
 
-                            MessageBox.Show("Добавлено");
-                        }
-                        catch (Exception helpExec)
-                        {
-                            MessageBox.Show(helpExec.Message);
-                        }
-                    }
+                    MessageBox.Show("Запись успешно добавлена");
                 }
-                catch (Exception helpConn)
+                catch (Exception helpExec)
                 {
-                    MessageBox.Show(helpConn.Message);
+                    MessageBox.Show(helpExec.Message);
                 }
+            }
+            catch (Exception helpConn)
+            {
+                MessageBox.Show(helpConn.Message);
             }
         }
     }
